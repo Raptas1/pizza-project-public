@@ -1,0 +1,28 @@
+:root {
+    --primary: #E5383B;
+    --secondary: #FDFCF8;
+    --primaryTint: #F7BFC0;
+}
+
+.toppings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2em;
+    font-size: 20px;
+}
+
+.topping {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.topping p {
+    padding-right:  1em;
+}
+
+
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/Layout.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <title>Topping Store</title>
+</head>
+<body>
+    <div id="deleteModal" class="ui modal">
+        <div class="header">
+            Edit Topping
+        </div>
+        <form th:action="@{/Toppings/editSuccess}" th:object="${ToppingsModel}" method="post">
+            <input type="text" th:field="*{id}" name="id" hidden/>
+            <div class="fluid ui input">
+                <input type="text" th:field="*{name}" th:value="*{name}" name="name" placeholder="Topping Name.."/>
+            </div>
+        <div class="buttons">
+            <a type=reset th:href="@{'/Toppings'}" class="ui button">Cancel</a>
+            <button type="submit" class="ui negative button">Edit</button>
+        </div>
+    </form>
+    </div>
+
+    <script>
+        $('.ui.modal').modal('show')
+    </script>
+</body>
+</html>

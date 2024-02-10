@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/Layout.css">
+    <link rel="stylesheet" href="../css/Pizza.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <title>Pizza Store</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="navbar">
+                <a href="/" class="nav">Home</a>
+                <a href="#" class="nav active">Pizzas</a>
+                <a href="/Toppings" class="nav">Toppings</a>
+            </div>
+            <div class="content">
+                <div class="heading">
+                    <button class="ui inverted button" onclick="showModal('createModal')">Create Pizzas</button>
+                </div>
+                <p class="title">Pizzas</p>
+                <div id="createModal" class="ui modal">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Create Pizzas
+                    </div>
+                    <form th:action="@{/Pizza/create}" th:object="${PizzaModel}" method="post">
+                        <div class="fluid ui input">
+                            <input type="text" th:field="*{name}" name="name" placeholder="Pizza Name.."/>
+                        </div>
+                        <h2>Toppings</h2>
+                        <div class="ui checkbox" th:each="topping : ${Toppings}">
+                            <input th:field="*{toppings}" th:value="${topping.id}" type="checkbox" name="topping"/>
+                            <Label th:text="${topping.name}"></Label>
+                        </div>
+                        <div class="buttons">
+                            <button onclick="hideModal('createModal')" type="reset" class="ui button">Cancel</button>
+                            <button class="ui negative button">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
+        <div class="errorContainer" th:if="${#fields.hasErrors('${PizzaModel.name}')}">
+            <p class="error" th:errors="${PizzaModel.name}"></p>
+        </div>
+        <div class="pizzas" th:each="pizza : ${Pizzas}">
+            <div class="pizza">
+                <p th:text="${pizza.name}">Name</p>
+                <form th:action="@{/Pizza/edit}" th:object="${pizza}" method="post">
+                    <input type="hidden" th:value="*{id}" name="id"/>
+                    <input type="hidden" th:value="*{name}" name="name"/>
+                    <button class="actionButtons"><i class="edit icon"></i></button>
+                </form>
+                <form th:action="@{/Pizza/delete}" th:object="${pizza}" method="post">
+                    <input type="hidden" th:value="*{id}" name="id" hidden/>
+                    <button class="actionButtons"><i class="trash icon"></i></button>
+                </form>
+            </div>
+            <div class="pizza-toppings">
+                <ul th:each="topping : ${pizza.toppings}">
+                    <li th:text="${topping.name}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(Pizzas)}">
+            <h2>No Pizzas yet, Lets create some!</h2>
+        </div>
+    </div>
+</body>
+<script>
+
+    $('.errorContainer').transition('fade', '5s')
+    
+    const showModal = (id) => {
+        $(`#${id}`).modal('show');
+    }
+
+    const hideModal = (id) => {
+        $(`#${id}`).modal('hide');
+    }
+</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/Layout.css">
+    <link rel="stylesheet" href="../css/Toppings.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <title>Pizza Store</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="navbar">
+                <a href="/" class="nav">Home</a>
+                <a href="/Pizza" class="nav">Pizzas</a>
+                <a href="#" class="nav active">Toppings</a>
+            </div>
+            <div class="content">
+                <div class="heading">
+                    <button class="ui inverted button" onclick="showModal('createModal')">Create Toppings</button>
+                </div>
+                <p class="title">Toppings</p>
+                <div id="createModal" class="ui modal">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Create Topping
+                    </div>
+                    <form th:action="@{/Toppings/create}" th:object="${ToppingsModel}" method="post">
+                        <div class="fluid ui input">
+                            <input type="text" th:field="*{name}" name="name" placeholder="Topping Name.."/>
+                        </div>
+                        <div class="buttons">
+                            <button onclick="hideModal('createModal')" type="reset" class="ui button">Cancel</button>
+                            <button class="ui negative button">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>    
+        </div>
+        <div class="errorContainer" th:if="${#fields.hasErrors('${ToppingsModel.name}')}">
+            <p class="error" th:errors="${ToppingsModel.name}"></p>
+        </div>
+        <div class="toppings" th:each="topping : ${Toppings}">
+            <div class="topping">
+                <p th:text="${topping.name}">Name</p>
+                <form th:action="@{/Toppings/edit}" th:object="${topping}" method="post">
+                    <input type="hidden" th:value="*{id}" name="id"/>
+                    <input type="hidden" th:value="*{name}" name="name"/>
+                    <button class="actionButtons"><i class="edit icon"></i></button>
+                </form>
+                <form th:action="@{/Toppings/delete}" th:object="${topping}" method="post">
+                    <input type="hidden" th:value="*{id}" name="id" hidden/>
+                    <button class="actionButtons"><i class="trash icon"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(Toppings)}">
+            <h2>No Toppings yet, Lets create some!</h2>
+        </div>
+    </div>
+</body>
+<script>
+
+    $('.errorContainer').transition('fade', '5s')
+    
+    const showModal = (id) => {
+        $(`#${id}`).modal('show');
+    }
+
+    const hideModal = (id) => {
+        $(`#${id}`).modal('hide');
+    }
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:util="urn:java:org.thymeleaf.expression.Util" xmlns:lists="http://www.thymeleaf.org/expression/lists">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/Layout.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <title>Topping Store</title>
+</head>
+<body>
+    <div id="deleteModal" class="ui modal">
+        <div class="header">
+            Edit Pizza
+        </div>
+        <form th:action="@{/Pizza/editSuccess}" th:object="${PizzaModel}" method="post">
+            <input type="text" th:field="*{id}" name="id" hidden/>
+            <div class="fluid ui input">
+                <input type="text" th:field="*{name}" th:value="*{name}" name="name" placeholder="Pizza Name.."/>
+            </div>
+            <h2>Toppings</h2>
+            <div class="ui checkbox" th:field="*{toppings}" th:each="topping : ${Toppings}">
+                <input th:value="${topping.id}" type="checkbox" name="topping" th:checked="${#lists.contains(currentToppings, topping)}" />
+                <Label th:text="${topping.name}"></Label>
+            </div>
+        <div class="buttons">
+            <a type=reset th:href="@{'/Pizza'}" class="ui button">Cancel</a>
+            <button type="submit" class="ui negative button">Edit</button>
+        </div>
+    </form>
+    </div>
+
+    <script>
+        $('.ui.modal').modal('show')
+    </script>
+</body>
+</html>

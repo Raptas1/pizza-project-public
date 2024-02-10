@@ -1,0 +1,97 @@
+:root {
+    --primary: #E5383B;
+    --primaryTint: #F7BFC0;
+    --secondary: #FDFCF8;
+}
+
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    src: url("../fonts/Fontspring-DEMO-proximanova-regular.otf")
+}
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'ProximaNovaRegular'
+}
+
+.nav {
+    text-decoration: none;
+    color: var(--secondary);
+}
+
+.nav:hover {
+    color: var(--secondary);
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 16px;
+
+}
+
+.header {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+
+.content {
+    text-align: center;
+    padding: 8em;
+}
+
+.active {
+    border-bottom: var(--secondary) 1px solid;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.modal {
+   padding: 4em
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 2em;
+}
+
+.errorContainer {
+    margin: 2em;
+}
+
+.error {
+    width: 25%;
+    border-radius: 16px;
+    border: var(--primary) 1px solid;
+    background-color: var(--primaryTint);
+    padding: 16px;
+    color: var(--primary);
+}
+
+.actionButtons {
+    cursor: pointer;
+    border: none;
+    background-color: white;
+}
+
+.checkbox {
+    margin-right: 1em;
+}
+
+.empty {
+    text-align: center;
+    padding-top: 5em;
+}

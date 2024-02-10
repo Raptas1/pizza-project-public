@@ -1,0 +1,27 @@
+
+.pizzas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 2em;
+    font-size: 20px;
+}
+
+.pizza {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.pizza-toppings {
+    display: flex;
+    flex-direction: column;
+    padding-right: 5em;
+}
+
+.pizza p {
+    padding-right:  1em;
+}
